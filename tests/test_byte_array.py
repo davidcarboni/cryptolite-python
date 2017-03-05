@@ -4,7 +4,6 @@ from cryptolite import byte_array
 
 
 class TestByteArray(TestCase):
-
     def setUp(self):
         self.data = bytearray("Mary had a little Café".encode("UTF8"))
 
@@ -22,6 +21,8 @@ class TestByteArray(TestCase):
         # Then
         # The end result should match the input
         self.assertEqual(self.data, back_again)
+        self.assertIsInstance(hex_string, str)
+        self.assertIsInstance(back_again, bytearray)
 
     def test_hex_prefix(self):
         """Verifies that a hex String with a 0x prefix can be correctly converted to bytes."""
@@ -65,6 +66,8 @@ class TestByteArray(TestCase):
         # Then
         # The end result should match the input
         self.assertEqual(self.data, back_again)
+        self.assertIsInstance(base64_string, str)
+        self.assertIsInstance(back_again, bytearray)
 
     def test_base64_none(self):
         """Verifies that None is gracefully handled."""
@@ -93,6 +96,8 @@ class TestByteArray(TestCase):
         # Then
         # The end result should match the input
         self.assertEqual(self.data, back_again)
+        self.assertIsInstance(string, str)
+        self.assertIsInstance(back_again, bytearray)
 
     def test_string_none(self):
         """Verifies that None is gracefully handled."""

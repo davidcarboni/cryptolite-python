@@ -71,7 +71,7 @@ def to_base64_string(byte_array):
      """
     result = None
     if byte_array is not None:
-        result = base64.b64encode(byte_array)
+        result = base64.b64encode(byte_array).decode(ENCODING)
     return result
 
 
@@ -83,7 +83,7 @@ def from_base64_string(base64_string):
      """
     result = None
     if base64_string is not None:
-        result = base64.b64decode(base64_string)
+        result = bytearray(base64.b64decode(base64_string))
     return result
 
 
