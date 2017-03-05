@@ -1,7 +1,6 @@
 """
 This module provides random functions, such as Salt, token and password
- generation. It also allows you to get a singleton {@link SecureRandom}
- instance.
+ generation.
 """
 
 import os
@@ -11,10 +10,10 @@ from cryptolite.byte_array import to_hex_string, to_base64_string
 
 __author__ = "David Carboni"
 
-"""The length of tokens."""
+"""The length for tokens."""
 TOKEN_BITS = 256
 
-"""The length of salt values."""
+"""The length for salt values."""
 SALT_BYTES = 16
 
 # Work out the right number of bytes for random tokens:
@@ -22,7 +21,7 @@ _bits_in_a_byte = 8
 _token_length_bytes = TOKEN_BITS // _bits_in_a_byte
 
 # Characters for pasword generation:
-passwordCharacters = string.ascii_letters + string.digits
+passwordCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 
 def byte_array(length):
@@ -34,14 +33,6 @@ def byte_array(length):
     return bytearray(os.urandom(length))
 
 
-def input_stream(length):
-    """Convenience method to instantiate an {@link InputStream} of random data of the specified length.
-         :param length: The length of the stream.
-         :return: An {@link InputStream} which will provide the specified number of random bytes.
-    """
-    pass
-
-
 def token():
     """Generates a random token.
     :return: A 256-bit (32 byte) random token as a hexadecimal string.
@@ -51,7 +42,7 @@ def token():
 
 
 def password(length):
-    """Generate a random password.
+    """Generates a random password.
 
     :param length: The length of the password to be returned.
     :return: A password of the specified length, selected from passwordCharacters.

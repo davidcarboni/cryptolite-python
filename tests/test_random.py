@@ -1,5 +1,6 @@
 import unittest
 from unittest import TestCase
+import re
 from cryptolite import random, byte_array
 
 
@@ -14,12 +15,12 @@ class TestRandom(TestCase):
 
         # When
         # Some random bytes
-        data = random.byte_array(length)
+        random_bytes = random.byte_array(length)
 
         # Then
         # Check we got what we expected
-        self.assertEqual(length, len(data))
-        self.assertIsInstance(data, bytearray)
+        self.assertEqual(length, len(random_bytes), "Unexpected random byte lenth.")
+        self.assertIsInstance(random_bytes, bytearray)
 
     def test_token_length(self):
         """Checks that the number of bits in the returned ID is the same as specified by TOKEN_BITS."""
@@ -31,7 +32,7 @@ class TestRandom(TestCase):
         # Then
         # It should be of the expected length
         token_bytes = byte_array.from_hex_string(token)
-        self.assertEqual(random.TOKEN_BITS, len(token_bytes) * 8)
+        self.assertEqual(random.TOKEN_BITS, len(token_bytes) * 8, "Unexpected token bit-length")
 
     def test_salt_length(self):
         """Checks that the number of bytes in a returned salt value matches the length specified in SALT_BYTES."""
@@ -43,28 +44,10 @@ class TestRandom(TestCase):
         # Then
         # It should be of the expected length
         salt_bytes = byte_array.from_base64_string(salt)
-        self.assertEqual(random.SALT_BYTES, len(salt_bytes))
+        self.assertEqual(random.SALT_BYTES, len(salt_bytes), "Unexpected salt byte-length")
 
-    def test_input_stream(self):
-        """Verifies that a random input stream provides the expected amout of input.
-
-        ND this is Not currently implemented.
-        """
-
-        # Given
-        length = 1025
-        inputStream = random.input_stream(length)
-
-        # When
-        count = 1025
-        # while (inputStream.read() != -1):
-        #    count++
-
-        # Then
-        self.assertEqual(length, count)
-
-    def test_password_length(self):
-        """Checks the number of characters in the returned password matches the specified length of the password."""
+    def test_password(self):
+        """Checks the number of characters and the content of the returned password matches the expected content."""
 
         # Given
         max_length = 100
@@ -74,7 +57,9 @@ class TestRandom(TestCase):
             password = random.password(length)
 
             # Then
-            self.assertEqual(length, len(password))
+            self.assertEqual(length, len(password), "Unexpected password length")
+            p = re.compile("[A-Za-z0-9]+")
+            self.assertTrue(p.match(password), "Unexpected password content")
 
     def test_randomness_of_tokens(self):
         """Test the general randomness of token generation.
@@ -85,11 +70,11 @@ class TestRandom(TestCase):
         iterations = 1000
         for i in range(1, iterations):
             # When
-            id1 = random.token()
-            id2 = random.token()
+            token1 = random.token()
+            token2 = random.token()
 
             # Then
-            self.assertNotEqual(id1, id2)
+            self.assertNotEqual(token1, token2, "Got identical tokens.")
 
     def test_randomness_of_salt(self):
         """Test the general randomness of salt generation.
@@ -104,7 +89,7 @@ class TestRandom(TestCase):
             salt2 = random.salt()
 
             # Then
-            self.assertNotEqual(salt1, salt2)
+            self.assertNotEqual(salt1, salt2, "Got identical salts.")
 
     def test_randomness_of_passwords(self):
         """Test the general randomness of password generation.
@@ -120,7 +105,7 @@ class TestRandom(TestCase):
             password2 = random.password(pasword_size)
 
             # Then
-            self.assertNotEqual(password1, password2)
+            self.assertNotEqual(password1, password2, "Got identical passwords.")
 
 
 if __name__ == '__main__':
