@@ -60,4 +60,5 @@ def salt():
     :return: A random salt value of SALT_BYTES length, as a base64-encoded
     string (for easy storage).
     """
-    return to_base64_string(byte_array(SALT_BYTES))
+    salt_bytes = byte_array(SALT_BYTES)
+    return to_base64_string(salt_bytes)
