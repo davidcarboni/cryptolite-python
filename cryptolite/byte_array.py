@@ -30,9 +30,6 @@ import base64
 
 __author__ = "David Carboni"
 
-"""The encoding to use for string operations."""
-ENCODING = "UTF8"
-
 
 def to_hex_string(byte_array):
     """Renders the given byte array as a hex String.
@@ -46,7 +43,7 @@ def to_hex_string(byte_array):
      """
     result = None
     if byte_array is not None:
-        result = binascii.hexlify(byte_array).decode(ENCODING)
+        result = binascii.hexlify(byte_array).decode("utf-8")
     return result
 
 
@@ -73,7 +70,7 @@ def to_base64_string(byte_array):
      """
     result = None
     if byte_array is not None:
-        result = base64.b64encode(byte_array).decode(ENCODING)
+        result = base64.b64encode(byte_array).decode("utf-8")
     return result
 
 
@@ -97,7 +94,7 @@ def to_string(byte_array):
       """
     result = None
     if byte_array is not None:
-        result = byte_array.decode(ENCODING)
+        result = byte_array.decode("utf-8")
     return result
 
 
@@ -108,5 +105,5 @@ def from_string(unicode_string):
       :return: A byte array representing the String."""
     result = None
     if unicode_string is not None:
-        result = bytearray(unicode_string.encode(ENCODING))
+        result = bytearray(unicode_string.encode("utf-8"))
     return result
