@@ -5,7 +5,7 @@
 
     - Plain-text strings need to be converted to a byte array for encryption
     and, after decryption, need to be converted from a byte array back to a
-    String. This is done using {@value #ENCODING} encoding.
+    String.
     - Encrypted byte arrays look like random bytes, which means they can't be
     reliably represented as a String. The best way to represent arbitrary bytes
     as a String is using Base-64. This class lets you convert a byte array of
@@ -87,7 +87,7 @@ def from_base64_string(base64_string):
 
 
 def to_string(byte_array):
-    """Converts the given byte array to a String using ENCODING.
+    """Converts the given byte array to a String.
 
       :param byte_array: The byte array to be converted to a String.
       :return: The String represented by the given bytes.
@@ -99,7 +99,7 @@ def to_string(byte_array):
 
 
 def from_string(unicode_string):
-    """Converts the given String to a byte array using :ENCODING:.
+    """Converts the given String to a byte array.
 
       :param unicode_string: The String to be converted to a byte array.
       :return: A byte array representing the String."""
