@@ -1,7 +1,7 @@
 import unittest
 from unittest import TestCase
 import re
-from cryptolite import random, byte_array
+from cryptolite import generate_random, byte_array
 
 
 class TestRandom(TestCase):
@@ -15,7 +15,7 @@ class TestRandom(TestCase):
 
         # When
         # Some random bytes
-        random_bytes = random.byte_array(length)
+        random_bytes = generate_random.byte_array(length)
 
         # Then
         # Check we got what we expected
@@ -27,24 +27,24 @@ class TestRandom(TestCase):
 
         # When
         # We generate a token
-        token = random.token()
+        token = generate_random.token()
 
         # Then
         # It should be of the expected length
         token_bytes = byte_array.from_hex_string(token)
-        self.assertEqual(random.TOKEN_BITS, len(token_bytes) * 8, "Unexpected token bit-length")
+        self.assertEqual(generate_random.TOKEN_BITS, len(token_bytes) * 8, "Unexpected token bit-length")
 
     def test_salt_length(self):
         """Checks that the number of bytes in a returned salt value matches the length specified in SALT_BYTES."""
 
         # When
         # We generate a salt
-        salt = random.salt()
+        salt = generate_random.salt()
 
         # Then
         # It should be of the expected length
         salt_bytes = byte_array.from_base64_string(salt)
-        self.assertEqual(random.SALT_BYTES, len(salt_bytes), "Unexpected salt byte-length")
+        self.assertEqual(generate_random.SALT_BYTES, len(salt_bytes), "Unexpected salt byte-length")
 
     def test_password(self):
         """Checks the number of characters and the content of the returned password matches the expected content."""
@@ -54,7 +54,7 @@ class TestRandom(TestCase):
 
         for length in range(1, max_length):
             # When
-            password = random.password(length)
+            password = generate_random.password(length)
 
             # Then
             self.assertEqual(length, len(password), "Unexpected password length")
@@ -70,8 +70,8 @@ class TestRandom(TestCase):
         iterations = 1000
         for i in range(1, iterations):
             # When
-            token1 = random.token()
-            token2 = random.token()
+            token1 = generate_random.token()
+            token2 = generate_random.token()
 
             # Then
             self.assertNotEqual(token1, token2, "Got identical tokens.")
@@ -85,8 +85,8 @@ class TestRandom(TestCase):
         iterations = 1000
         for i in range(1, iterations):
             # When
-            salt1 = random.salt()
-            salt2 = random.salt()
+            salt1 = generate_random.salt()
+            salt2 = generate_random.salt()
 
             # Then
             self.assertNotEqual(salt1, salt2, "Got identical salts.")
@@ -101,8 +101,8 @@ class TestRandom(TestCase):
         pasword_size = 8
         for i in range(1, iterations):
             # When
-            password1 = random.password(pasword_size)
-            password2 = random.password(pasword_size)
+            password1 = generate_random.password(pasword_size)
+            password2 = generate_random.password(pasword_size)
 
             # Then
             self.assertNotEqual(password1, password2, "Got identical passwords.")
