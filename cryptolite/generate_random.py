@@ -4,7 +4,6 @@ This module provides random functions, such as Salt, token and password
 """
 
 import os
-import string
 from secrets import choice
 from cryptolite.byte_array import to_hex_string, to_base64_string
 
@@ -25,16 +24,19 @@ passwordCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345
 
 
 def byte_array(length):
-    """Convenience method to instantiate and populate a byte array of the specified length.
+    """
+    Convenience method to instantiate and populate a byte array of the specified length.
 
-         :param length: The length of the array.
-         :return: os.urandom(length)
+    :param length: The length of the array.
+    :return: os.urandom(length)
     """
     return bytearray(os.urandom(length))
 
 
 def token():
-    """Generates a random token.
+    """
+    Generates a random token.
+
     :return: A 256-bit (32 byte) random token as a hexadecimal string.
     """
     token_bytes = byte_array(_token_length_bytes)
@@ -42,7 +44,8 @@ def token():
 
 
 def password(length):
-    """Generates a random password.
+    """
+    Generates a random password.
 
     :param length: The length of the password to be returned.
     :return: A password of the specified length, selected from passwordCharacters.
@@ -51,7 +54,8 @@ def password(length):
 
 
 def salt():
-    """Generates a random salt value.
+    """
+    Generates a random salt value.
 
     If a salt value is needed by an API call,
     the documentation of that method should reference this method. Other than than,

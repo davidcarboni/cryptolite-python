@@ -5,10 +5,14 @@ from cryptolite import generate_random, byte_array
 
 
 class TestRandom(TestCase):
-    """Test for random"""
+    """
+    Test for random
+    """
 
     def test_byte_array(self):
-        """Checks that generating a random byte array returns the expected number of bytes."""
+        """
+        Checks that generating a random byte array returns the expected number of bytes.
+        """
 
         # Given
         length = 20
@@ -23,7 +27,9 @@ class TestRandom(TestCase):
         self.assertIsInstance(random_bytes, bytearray)
 
     def test_token_length(self):
-        """Checks that the number of bits in the returned ID is the same as specified by TOKEN_BITS."""
+        """
+        Checks that the number of bits in the returned ID is the same as specified by TOKEN_BITS.
+        """
 
         # When
         # We generate a token
@@ -35,7 +41,9 @@ class TestRandom(TestCase):
         self.assertEqual(generate_random.TOKEN_BITS, len(token_bytes) * 8, "Unexpected token bit-length")
 
     def test_salt_length(self):
-        """Checks that the number of bytes in a returned salt value matches the length specified in SALT_BYTES."""
+        """
+        Checks that the number of bytes in a returned salt value matches the length specified in SALT_BYTES.
+        """
 
         # When
         # We generate a salt
@@ -47,7 +55,9 @@ class TestRandom(TestCase):
         self.assertEqual(generate_random.SALT_BYTES, len(salt_bytes), "Unexpected salt byte-length")
 
     def test_password(self):
-        """Checks the number of characters and the content of the returned password matches the expected content."""
+        """
+        Checks the number of characters and the content of the returned password matches the expected content.
+        """
 
         # Given
         max_length = 100
@@ -62,7 +72,8 @@ class TestRandom(TestCase):
             self.assertTrue(p.match(password), "Unexpected password content")
 
     def test_randomness_of_tokens(self):
-        """Test the general randomness of token generation.
+        """
+        Test the general randomness of token generation.
 
         If this test fails, consider yourself astoundingly lucky.. or check the code is really producing random numbers.
         """
@@ -77,7 +88,8 @@ class TestRandom(TestCase):
             self.assertNotEqual(token1, token2, "Got identical tokens.")
 
     def test_randomness_of_salt(self):
-        """Test the general randomness of salt generation.
+        """
+        Test the general randomness of salt generation.
 
         If this test fails, consider yourself astoundingly lucky.. or check the code is really producing random numbers.
         """
@@ -92,7 +104,8 @@ class TestRandom(TestCase):
             self.assertNotEqual(salt1, salt2, "Got identical salts.")
 
     def test_randomness_of_passwords(self):
-        """Test the general randomness of password generation.
+        """
+        Test the general randomness of password generation.
 
         If this test fails, consider yourself astoundingly lucky.. or check the code is really producing random numbers.
         """

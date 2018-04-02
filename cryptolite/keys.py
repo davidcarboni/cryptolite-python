@@ -63,18 +63,20 @@ ASYMMETRIC_KEY_SIZE = 3072
 
 
 def new_secret_key():
-    """Generates a new secret (or symmetric) key for use with AES.
+    """
+    Generates a new secret (or symmetric) key for use with AES.
 
-        The key size is determined by SYMMETRIC_KEY_SIZE.
+    The key size is determined by SYMMETRIC_KEY_SIZE.
 
-        :return: A new, randomly generated secret key.
+    :return: A new, randomly generated secret key.
     """
     # FYI: AES keys are just random bytes from a strong source of randomness.
     return os.urandom(SYMMETRIC_KEY_SIZE // 8)
 
 
 def generate_secret_key(password, salt):
-    """Generates a new secret (or symmetric) key for use with SYMMETRIC_ALGORITHM using the given password and salt values.
+    """
+    Generates a new secret (or symmetric) key for use with SYMMETRIC_ALGORITHM using the given password and salt values.
 
     Given the same password and salt, this method will (re)generate the same key.
 
@@ -110,7 +112,8 @@ def generate_secret_key(password, salt):
 
 
 def new_key_pair():
-    """Generates a new public-private (or asymmetric) key pair for use with ASYMMETRIC_ALGORITHM.
+    """
+    Generates a new public-private (or asymmetric) key pair for use with ASYMMETRIC_ALGORITHM.
 
     The key size will be ASYMMETRIC_KEY_SIZE bits.
 
