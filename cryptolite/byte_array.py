@@ -71,9 +71,6 @@ def to_base64_string(byte_array):
     """
     Encodes the given byte array as a base-64 String.
 
-    Internally, this checks for null and then calls the Apache commons-codec
-    method base64.b64encode(bytetarray).
-
     :param byte_array: The byte array to be encoded.
     :return: The byte array encoded using base-64.
     """
@@ -85,7 +82,7 @@ def to_base64_string(byte_array):
 
 def from_base64_string(base64_string):
     """
-    Decodes the given base-64 string into a byte array.
+    Decodes the given base-64 string to a byte array.
 
     :param base64_string: A base-64 encoded string.
     :return: The decoded byte array.
