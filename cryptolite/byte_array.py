@@ -22,11 +22,11 @@ the different translations you need:
 The naming convention for functions is set up from the point of view of
 a byte array. For example, a byte array can go:
 
->>> to_hex_string
+``to_hex_string``
 
 and back:
 
->>> from_hex_string
+``from_hex_string``
 
 The same pattern is used for each pair of methods (to/from hex, base64 and string).
 """
