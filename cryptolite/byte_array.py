@@ -41,11 +41,9 @@ def to_hex_string(byte_array):
     """
     Renders the given byte array as a hex String.
 
-    This is a convenience method useful for checking values during development.
+    This is a convenience method useful for testing values during development.
 
-    Internally, this checks for null and then calls binascii.hexlify.
-
-    :param byte_array: The byte array to be encoded.
+    :param byte_array: The byte array to be represented in hex.
     :return: A hex string representation of the byte array.
     """
     result = None
@@ -58,7 +56,9 @@ def from_hex_string(hex_string):
     """
     Converts the given hex string to a byte array.
 
-    :param hex_string: The hex String to parse.
+    This is a convenience method useful for testing values during development.
+
+    :param hex_string: The hex String to parse to bytes.
     :return: A byte array, as parsed from the given String
     """
     result = None
