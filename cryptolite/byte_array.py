@@ -1,33 +1,34 @@
-""" The byte_array module provides the ability to convert byte arrays to
-    Strings, Base-64 and hexadecimal and vice-versa.
+"""
+The byte_array module provides the ability to convert byte arrays to
+Strings, Base-64 and hexadecimal and vice-versa.
 
-    Cryptography is mainly about manipulating byte arrays, so this class provides
-    the different translations you need:
+Cryptography is mainly about manipulating byte arrays, so this class provides
+the different translations you need:
 
-    - Plain-text strings need to be converted to a byte array for encryption
-      and, after decryption, need to be converted from a byte array back to a
-      String.
-    - Encrypted byte arrays look like random bytes, which means they can't be
-      reliably represented as a String. The simplest way to represent arbitrary bytes
-      as a String is using Base-64. This class lets you convert a byte array of
-      encrypted data to Base-64 so it can be easily stored and back again so it can
-      be decrypted.
-    - Finally, this class also allows you to transform a byte array to a
-      hexadecimal String and back again. This is most useful in development when
-      you need to print out values to see what's going on. Conversion from
-      hexadecimal to byte array is occasionally useful, but chances are you'll use
-      byte[] to hex most of the time.
+- Plain-text strings need to be converted to a byte array for encryption
+  and, after decryption, need to be converted from a byte array back to a
+  String.
+- Encrypted byte arrays look like random bytes, which means they can't be
+  reliably represented as a String. The simplest way to represent arbitrary bytes
+  as a String is using Base-64. This class lets you convert a byte array of
+  encrypted data to Base-64 so it can be easily stored and back again so it can
+  be decrypted.
+- Finally, this class also allows you to transform a byte array to a
+  hexadecimal String and back again. This is most useful in development when
+  you need to print out values to see what's going on. Conversion from
+  hexadecimal to byte array is occasionally useful, but chances are you'll use
+  byte[] to hex most of the time.
 
-    The naming convention for functions is set up from the point of view of
-    a byte array. For example, a byte array can go:
+The naming convention for functions is set up from the point of view of
+a byte array. For example, a byte array can go:
 
-    >>> to_hex_string
+>>> to_hex_string
 
-    and back:
+and back:
 
-    >>> from_hex_string
+>>> from_hex_string
 
-    The same pattern is used for each pair of methods (to/from hex, base64 and string).
+The same pattern is used for each pair of methods (to/from hex, base64 and string).
 """
 
 import binascii
@@ -37,15 +38,16 @@ __author__ = "David Carboni"
 
 
 def to_hex_string(byte_array):
-    """Renders the given byte array as a hex String.
+    """
+    Renders the given byte array as a hex String.
 
-     This is a convenience method useful for checking values during development.
+    This is a convenience method useful for checking values during development.
 
-     Internally, this checks for null and then calls binascii.hexlify.
+    Internally, this checks for null and then calls binascii.hexlify.
 
-     :param byte_array: The byte array to be encoded.
-     :return: A hex string representation of the byte array.
-     """
+    :param byte_array: The byte array to be encoded.
+    :return: A hex string representation of the byte array.
+    """
     result = None
     if byte_array is not None:
         result = binascii.hexlify(byte_array).decode("utf-8")
@@ -53,7 +55,8 @@ def to_hex_string(byte_array):
 
 
 def from_hex_string(hex_string):
-    """Converts the given hex string to a byte array.
+    """
+    Converts the given hex string to a byte array.
 
     :param hex_string: The hex String to parse.
     :return: A byte array, as parsed from the given String
@@ -65,14 +68,15 @@ def from_hex_string(hex_string):
 
 
 def to_base64_string(byte_array):
-    """Encodes the given byte array as a base-64 String.
+    """
+    Encodes the given byte array as a base-64 String.
 
-      Internally, this checks for null and then calls the Apache commons-codec
-      method base64.b64encode(bytetarray).
+    Internally, this checks for null and then calls the Apache commons-codec
+    method base64.b64encode(bytetarray).
 
-      :param byte_array: The byte array to be encoded.
-      :return: The byte array encoded using base-64.
-     """
+    :param byte_array: The byte array to be encoded.
+    :return: The byte array encoded using base-64.
+    """
     result = None
     if byte_array is not None:
         result = base64.b64encode(byte_array).decode("utf-8")
@@ -80,11 +84,12 @@ def to_base64_string(byte_array):
 
 
 def from_base64_string(base64_string):
-    """Decodes the given base-64 string into a byte array.
+    """
+    Decodes the given base-64 string into a byte array.
 
-     :param base64_string: A base-64 encoded string.
-     :return: The decoded byte array.
-     """
+    :param base64_string: A base-64 encoded string.
+    :return: The decoded byte array.
+    """
     result = None
     if base64_string is not None:
         result = bytearray(base64.b64decode(base64_string))
@@ -92,11 +97,12 @@ def from_base64_string(base64_string):
 
 
 def to_string(byte_array):
-    """Converts the given byte array to a String.
+    """
+    Converts the given byte array to a String.
 
-      :param byte_array: The byte array to be converted to a String.
-      :return: The String represented by the given bytes.
-      """
+    :param byte_array: The byte array to be converted to a String.
+    :return: The String represented by the given bytes.
+    """
     result = None
     if byte_array is not None:
         result = byte_array.decode("utf-8")
@@ -104,10 +110,12 @@ def to_string(byte_array):
 
 
 def from_string(unicode_string):
-    """Converts the given String to a byte array.
+    """
+    Converts the given String to a byte array.
 
-      :param unicode_string: The String to be converted to a byte array.
-      :return: A byte array representing the String."""
+    :param unicode_string: The String to be converted to a byte array.
+    :return: A byte array representing the String.
+    """
     result = None
     if unicode_string is not None:
         result = bytearray(unicode_string.encode("utf-8"))
