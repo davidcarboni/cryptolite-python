@@ -4,13 +4,17 @@ from cryptolite import byte_array
 
 
 class TestByteArray(TestCase):
-    """Test for byte_array."""
+    """
+    Tests for byte array conversions.
+    """
 
     def setUp(self):
         self.data = bytearray("Mary had a little Café".encode("UTF8"))
 
     def test_hex(self):
-        """Verifies a byte array can be correctly converted to a hex String and back again."""
+        """
+        Verifies a byte array can be correctly converted to a hex String and back again.
+        """
 
         # Given
         # The byte array from setup
@@ -27,7 +31,9 @@ class TestByteArray(TestCase):
         self.assertIsInstance(back_again, bytearray)
 
     def test_hex_none(self):
-        """Verifies that None is gracefully handled."""
+        """
+        Verifies that None is gracefully handled.
+        """
 
         # When
         # We attempt conversion
@@ -40,7 +46,9 @@ class TestByteArray(TestCase):
         self.assertEqual(None, s)
 
     def test_base64(self):
-        """Verifies a byte array can be correctly converted to base64 and back again."""
+        """
+        Verifies a byte array can be correctly converted to base64 and back again.
+        """
 
         # Given
         # The byte array from setup
@@ -57,7 +65,9 @@ class TestByteArray(TestCase):
         self.assertIsInstance(back_again, bytearray)
 
     def test_base64_none(self):
-        """Verifies that None is gracefully handled."""
+        """
+        Verifies that None is gracefully handled.
+        """
 
         # When
         # We attempt conversion
@@ -70,7 +80,9 @@ class TestByteArray(TestCase):
         self.assertEqual(None, s)
 
     def test_string(self):
-        """Verifies a byte array can be correctly converted to a string and back again."""
+        """
+        Verifies a byte array can be correctly converted to a string and back again.
+        """
 
         # Given
         # The byte array from setup
@@ -87,7 +99,9 @@ class TestByteArray(TestCase):
         self.assertIsInstance(back_again, bytearray)
 
     def test_string_none(self):
-        """Verifies that None is gracefully handled."""
+        """
+        Verifies that None is gracefully handled.
+        """
 
         # When
         # We attempt conversion
