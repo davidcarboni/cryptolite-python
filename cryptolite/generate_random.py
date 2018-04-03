@@ -5,7 +5,7 @@ including salt, token and password values.
 
 import os
 from secrets import choice
-from cryptolite.byte_array import to_hex_string, to_base64_string
+from cryptolite.byte_array import to_hex, to_base64
 
 __author__ = "David Carboni"
 
@@ -40,7 +40,7 @@ def token():
     :return: A 256-bit (32 byte) random token as a hexadecimal string.
     """
     token_bytes = byte_array(_token_length_bytes)
-    return to_hex_string(token_bytes)
+    return to_hex(token_bytes)
 
 
 def password(length):
@@ -65,4 +65,4 @@ def salt():
     string (for easy storage).
     """
     salt_bytes = byte_array(SALT_BYTES)
-    return to_base64_string(salt_bytes)
+    return to_base64(salt_bytes)

@@ -21,13 +21,13 @@ class TestByteArray(TestCase):
 
         # When
         # We convert to hex and back again
-        hex_string = byte_array.to_hex_string(self.data)
-        back_again = byte_array.from_hex_string(hex_string)
+        hex = byte_array.to_hex(self.data)
+        back_again = byte_array.from_hex(hex)
 
         # Then
         # The end result should match the input
         self.assertEqual(self.data, back_again)
-        self.assertIsInstance(hex_string, str)
+        self.assertIsInstance(hex, str)
         self.assertIsInstance(back_again, bytearray)
 
     def test_hex_none(self):
@@ -37,8 +37,8 @@ class TestByteArray(TestCase):
 
         # When
         # We attempt conversion
-        b = byte_array.to_hex_string(None)
-        s = byte_array.from_hex_string(None)
+        b = byte_array.to_hex(None)
+        s = byte_array.from_hex(None)
 
         # Then
         # No error should occur and we should have None results
@@ -55,13 +55,13 @@ class TestByteArray(TestCase):
 
         # When
         # We convert to hex and back again
-        base64_string = byte_array.to_base64_string(self.data)
-        back_again = byte_array.from_base64_string(base64_string)
+        base64 = byte_array.to_base64(self.data)
+        back_again = byte_array.from_base64(base64)
 
         # Then
         # The end result should match the input
         self.assertEqual(self.data, back_again)
-        self.assertIsInstance(base64_string, str)
+        self.assertIsInstance(base64, str)
         self.assertIsInstance(back_again, bytearray)
 
     def test_base64_none(self):
@@ -71,8 +71,8 @@ class TestByteArray(TestCase):
 
         # When
         # We attempt conversion
-        b = byte_array.to_base64_string(None)
-        s = byte_array.from_base64_string(None)
+        b = byte_array.to_base64(None)
+        s = byte_array.from_base64(None)
 
         # Then
         # No error should occur and we should have None results

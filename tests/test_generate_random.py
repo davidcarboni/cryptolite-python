@@ -37,7 +37,7 @@ class TestRandom(TestCase):
 
         # Then
         # It should be of the expected length
-        token_bytes = byte_array.from_hex_string(token)
+        token_bytes = byte_array.from_hex(token)
         self.assertEqual(generate_random.TOKEN_BITS, len(token_bytes) * 8, "Unexpected token bit-length")
 
     def test_salt_length(self):
@@ -51,7 +51,7 @@ class TestRandom(TestCase):
 
         # Then
         # It should be of the expected length
-        salt_bytes = byte_array.from_base64_string(salt)
+        salt_bytes = byte_array.from_base64(salt)
         self.assertEqual(generate_random.SALT_BYTES, len(salt_bytes), "Unexpected salt byte-length")
 
     def test_password(self):

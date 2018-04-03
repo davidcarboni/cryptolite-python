@@ -22,11 +22,11 @@ the different translations you need:
 The naming convention for functions is set up from the point of view of
 a byte array. For example, a byte array can go:
 
-``to_hex_string``
+``to_hex``
 
 and back:
 
-``from_hex_string``
+``from_hex``
 
 The same pattern is used for each pair of methods (to/from hex, base64 and string).
 """
@@ -37,7 +37,7 @@ import base64
 __author__ = "David Carboni"
 
 
-def to_hex_string(byte_array):
+def to_hex(byte_array):
     """
     Renders the given byte array as a hex String.
 
@@ -52,7 +52,7 @@ def to_hex_string(byte_array):
     return result
 
 
-def from_hex_string(hex_string):
+def from_hex(hex_string):
     """
     Converts the given hex string to a byte array.
 
@@ -67,7 +67,7 @@ def from_hex_string(hex_string):
     return result
 
 
-def to_base64_string(byte_array):
+def to_base64(byte_array):
     """
     Encodes the given byte array as a base-64 String.
 
@@ -80,7 +80,7 @@ def to_base64_string(byte_array):
     return result
 
 
-def from_base64_string(base64_string):
+def from_base64(base64_string):
     """
     Decodes the given base-64 string to a byte array.
 
