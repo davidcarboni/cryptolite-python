@@ -48,7 +48,7 @@ def password(length):
     Generates a random password.
 
     :param length: The length of the password to be returned.
-    :return: A password of the specified length, selected from passwordCharacters.
+    :return: A password of the specified length, selected from ``passwordCharacters``.
     """
     return ''.join(choice(passwordCharacters) for i in range(length))
 
