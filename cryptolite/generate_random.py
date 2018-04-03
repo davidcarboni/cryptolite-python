@@ -1,6 +1,6 @@
 """
-This module provides random functions, such as Salt, token and password
- generation.
+Provides the ability to generate things that need to be random,
+including salt, token and password values.
 """
 
 import os
