@@ -25,7 +25,7 @@ passwordCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345
 
 def byte_array(length):
     """
-    Convenience method to instantiate and populate a byte array of the specified length.
+    Instantiates and populates a byte array of the specified length.
 
     :param length: The length of the array.
     :return: os.urandom(length)
@@ -50,7 +50,19 @@ def password(length):
     :param length: The length of the password to be returned.
     :return: A password of the specified length, selected from ``passwordCharacters``.
     """
-    return ''.join(choice(passwordCharacters) for i in range(length))
+
+    result = ""
+    values = byte_array(length)
+    # We use a modulus of an increasing index rather than of the byte values
+    # to avoid certain characters coming up more often.
+    index = 0
+
+    for i in range(length):
+        index += values[i]
+        index = index % len(passwordCharacters)
+        result += passwordCharacters[index]
+
+    return result
 
 
 def salt():
