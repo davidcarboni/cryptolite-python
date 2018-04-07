@@ -1,36 +1,86 @@
 """
-    This module generates cryptographic keys.
+Generates cryptographic keys.
 
-    The following key types are available:
-    - Deterministic symmetric/secret 256-bit AES keys, based on a password
-    - Random symmetric/secret 256-bit AES keys
-    - Asymmetric 3072-bit RSA key pairs
-    
-    *Deterministic keys:* these are the easiest to manage as they don't need to be stored. So
-    long as you pass in the same password each time, the same key will be generated every time. The
-    drawback is that if you want to generate more than one key you'll need more than one password.
-    However, if you do only need one key, this approach can be ideal as you can use the user's
-    plaintext password to generate the key. Since you never store a user's plaintext password (see
-    ``Password.hash(String)``) the key can only be regenerated using the correct password. Bear
-    in mind however that if the user changes (or resets) their password this will result in a
-    different key, so you'll need a plan for recovering data encrypted with the old key and
-    re-encrypting it with the new one.
 
-    *Random keys:* these are simple to generate, but need to be stored because it's
-    effectively impossible to regenerate the key. To store a key you should use
-    ``KeyWrapper.wrapSecretKey(SecretKey)``. This produces an encrypted version of the key which
-    can safely be stored in, for example, a database or configuration value. The benefit of the
-    ``KeyWrapper`` approach is that when a user changes their password you'll only need to
-    re-encrypt the stored keys using a ``KeyWrapper`` initialised with the new password, rather
-    than have to re-encrypt all data encrypted with the key.
 
-    In both cases when a user changes their password you will have the old and the new plaintext
-    passwords, meaning you can decrypt with the old an re-encrypt with the new. The difficulty comes
-    when you need to reset a password, because it's not possible to recover the old password. In this
-    case you either need a secondary password, such as a security question, or you need to be clear
-    that data cannot be recovered. Whatever your solution, remember that storing someone's password
-    in any recoverable form is not OK, so you'll need to put some thought into the recovery process.
- """
+Key types
+---------
+
+* Secret keys (either randomly generated or deterministic, based on a password).
+* Public-Private key pairs.
+
+
+How to use keys
+---------------
+
+* Secret keys are used for encryption (see Crypto).
+* Secret keys are also used to secure other secret keys and private keys (see KeyWrapper)
+* Public-Private keys are used for digital signatures (see DigitalSignature).
+* Public-Private keys are also used for key exchange (see KeyExchange).
+
+
+Managing encryption keys
+------------------------
+
+A good applied cryptography design is all about how you manage secrets: keys and passwords.
+
+Assuming you're using primitives correctly (that's what Cryptolite does for you)
+then it'll be all about your key management design.
+
+Here are some examples, based on using secret keys to encrypt user data,
+to give you a primer on the things you'll want to consider when designing with encryption.
+In these examples, we're choosing between random and deterministic (password-based) keys.
+
+
+Deterministic key design
+------------------------
+
+Deterministic keys are the easiest to manage as you don't need to store the key itself.
+Providing the password used to generate the key is properly managed and is available
+when you need access to the key, the key can be reliably regenerated each time.
+
+The drawback is that if you want to generate more than one key you'll need more than one password.
+However, if you do only need one key, this approach can be ideal as you could use, say, the user's
+plaintext password to generate the key. You never store a user's plaintext password (see
+``password.hash``) so the right key can only be generated when the user logs in.
+
+Bear in mind however that if the user changes (or resets) their password this will generate a
+different key, so you'll need a plan for recovering data encrypted with the old key and
+re-encrypting it with the new one.
+
+
+Random key design
+-----------------
+
+Random keys are simple to generate, but need to be stored because there's no way
+to regenerate the same key.
+
+To store a key you can use ``key_wrapper.wrapSecretKey()``.
+This encrypts the key which means it can be safely stored in, for example,
+a database or configuration value.
+
+The benefit of the ``key_wrapper`` approach is that
+when a user changes their password you'll only need to re-encrypt the stored keys using a new
+``key_wrapper`` initialised with the new password, rather than have to re-encrypt all
+data that was encrypted with a key generated based on the user's password
+(as in a deterministic design).
+
+
+Password recovery and reset
+---------------------------
+
+In both designs, when a user changes their password you will have the old and the new plaintext
+passwords, meaning you can decrypt with the old an re-encrypt with the new.
+
+The difficulty comes when you need to reset a password, because it's not possible to recover
+the old password, so you can't recover the encryption key either. In this case you'll either
+need a backup way to recover the encryption key, or you'll need to be clear that data cannot
+be recovered at all.
+
+Whatever your solution, remember that storing someone's password in any recoverable form is not OK,
+so you'll need to put some thought into the recovery process.
+
+"""
 
 import os
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
@@ -43,28 +93,33 @@ __author__ = "David Carboni"
 
 backend = default_backend()
 
-"""The symmetric key algorithm."""
+# Please treat the following values as constants.
+# They are implemented as variables just in case you do need to alter them.
+# These are the settings that provide "right" cryptography so you'll need to
+# know what you're doing if you want to alter them.
+
+"""The secret key algorithm."""
 SYMMETRIC_ALGORITHM = "AES"
 
-"""The key size for symmetric keys."""
+"""The key size for secret keys."""
 SYMMETRIC_KEY_SIZE = 256
 
 """The algorithm to use to generate password-based secret keys."""
 SYMMETRIC_PASSWORD_ALGORITHM = "PBKDF2WithHmacSHA1"
 
-"""The number of iterations to use for password-based key derivation."""
+"""The number of iteration rounds to use for password-based secret keys."""
 SYMMETRIC_PASSWORD_ITERATIONS = 1024
 
-"""The asymmetric key algorithm."""
+"""The public-private key pair algorithm."""
 ASYMMETRIC_ALGORITHM = "RSA"
 
-"""The key size for asymmetric keys."""
-ASYMMETRIC_KEY_SIZE = 3072
+"""The key size for public-private key pairs."""
+ASYMMETRIC_KEY_SIZE = 4096
 
 
 def new_secret_key():
     """
-    Generates a new secret (or symmetric) key for use with AES.
+    Generates a new secret (also known as symmetric) key for use with AES.
 
     The key size is determined by SYMMETRIC_KEY_SIZE.
 
