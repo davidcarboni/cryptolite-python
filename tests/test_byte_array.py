@@ -1,6 +1,6 @@
 import unittest
 from unittest import TestCase
-from cryptolite import byte_array
+from cryptolite import byte_array, generate
 
 
 class TestByteArray(TestCase):
@@ -8,25 +8,22 @@ class TestByteArray(TestCase):
     Tests for byte array conversions.
     """
 
-    def setUp(self):
-        self.data = bytearray("Mary had a little Café".encode("UTF8"))
-
     def test_hex(self):
         """
         Verifies a byte array can be correctly converted to a hex String and back again.
         """
 
         # Given
-        # The byte array from setup
+        data = generate.byte_array(100)
 
         # When
         # We convert to hex and back again
-        hex = byte_array.to_hex(self.data)
+        hex = byte_array.to_hex(data)
         back_again = byte_array.from_hex(hex)
 
         # Then
         # The end result should match the input
-        self.assertEqual(self.data, back_again)
+        self.assertEqual(data, back_again)
         self.assertIsInstance(hex, str)
         self.assertIsInstance(back_again, bytearray)
 
@@ -51,16 +48,16 @@ class TestByteArray(TestCase):
         """
 
         # Given
-        # The byte array from setup
+        data = generate.byte_array(100)
 
         # When
         # We convert to hex and back again
-        base64 = byte_array.to_base64(self.data)
+        base64 = byte_array.to_base64(data)
         back_again = byte_array.from_base64(base64)
 
         # Then
         # The end result should match the input
-        self.assertEqual(self.data, back_again)
+        self.assertEqual(data, back_again)
         self.assertIsInstance(base64, str)
         self.assertIsInstance(back_again, bytearray)
 
@@ -85,16 +82,16 @@ class TestByteArray(TestCase):
         """
 
         # Given
-        # The byte array from setup
+        data = bytearray("Mary had a little Café".encode("UTF8"))
 
         # When
         # We convert to string and back again
-        string = byte_array.to_string(self.data)
+        string = byte_array.to_string(data)
         back_again = byte_array.from_string(string)
 
         # Then
         # The end result should match the input
-        self.assertEqual(self.data, back_again)
+        self.assertEqual(data, back_again)
         self.assertIsInstance(string, str)
         self.assertIsInstance(back_again, bytearray)
 
