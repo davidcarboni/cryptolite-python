@@ -160,7 +160,8 @@ def generate_secret_key(password, salt):
         iterations=SYMMETRIC_PASSWORD_ITERATIONS,
         backend=backend
     )
-    return key_generator.derive(password.encode("utf-8"))
+    password_bytes = password.encode("utf-8")
+    return key_generator.derive(password_bytes)
 
 
 def new_key_pair():
