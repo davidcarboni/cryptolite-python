@@ -4,7 +4,6 @@ including salt, token and password values.
 """
 
 import os
-from secrets import choice
 from cryptolite.byte_array import to_hex, to_base64
 
 __author__ = "David Carboni"
