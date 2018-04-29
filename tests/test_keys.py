@@ -27,3 +27,7 @@ class TestByteArray(TestCase):
         # Then
         # We should get the expected key
         self.assertEqual(key_hex, byte_array.to_hex(key))
+
+
+if __name__ == '__main__':
+    unittest.main()
