@@ -21,7 +21,7 @@ def readme():
 
 
 setup(name='Cryptolite',
-      version='0.0.2',
+      version='0.0.3',
       description='Simple, "right" cryptography.',
       author='David Carboni',
       author_email='david@carboni.io',
